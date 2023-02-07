@@ -13,6 +13,8 @@ use App\Http\Controllers\FirstAppController;
 use App\Http\Controllers\LoginAppController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\DetailPenjualanController;
+use App\Http\Controllers\PenjualanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,20 @@ Route::get('/pos', [PosController::class, 'index']);
 Route::get('/api/customer-byid/{id}', [PosController::class, 'data']);
 Route::get('/api/data-byid/{id}', [PosController::class, 'data_menu']);
 Route::get('/api/add-data-penjualan', [PosController::class, 'add_data_penjualan']);
+
+Route::get('/penjualan', [PenjualanController::class, 'index']);
+Route::get('/penjualan/create', [PenjualanController::class, 'create']);
+Route::post('/penjualan', [PenjualanController::class, 'store']);
+Route::get('/penjualan/{id}/edit', [PenjualanController::class, 'edit']);
+Route::put('/penjualan/{id}', [PenjualanController::class, 'update']);
+Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy']);
+
+Route::get('/penjualan', [DetailPenjualanController::class, 'index']);
+Route::get('/penjualan/create', [DetailPenjualanController::class, 'create']);
+Route::post('/penjualan', [DetailPenjualanController::class, 'store']);
+Route::get('/penjualan/{id}/edit', [DetailPenjualanController::class, 'edit']);
+Route::put('/penjualan/{id}', [DetailPenjualanController::class, 'update']);
+Route::delete('/penjualan/{id}', [DetailPenjualanController::class, 'destroy']);
 
 Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/menu/create', [MenuController::class, 'create']);

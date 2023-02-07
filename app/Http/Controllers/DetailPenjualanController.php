@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Penjualan;
+use App\Models\detail_penjualan;
 use Illuminate\Http\Request;
 
-class PenjualanController extends Controller
+class DetailPenjualanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,7 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        $penjualan = Penjualan::all();
-        return view('dashboard.penjualan.index', [
-            'title' => 'penjualan',
-            'penjualan' => $penjualan
-        ]);
+        
     }
 
     /**
@@ -45,10 +41,10 @@ class PenjualanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Penjualan  $penjualan
+     * @param  \App\Models\detail_penjualan  $detail_penjualan
      * @return \Illuminate\Http\Response
      */
-    public function show(Penjualan $penjualan)
+    public function show(detail_penjualan $detail_penjualan)
     {
         //
     }
@@ -56,10 +52,10 @@ class PenjualanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Penjualan  $penjualan
+     * @param  \App\Models\detail_penjualan  $detail_penjualan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penjualan $penjualan)
+    public function edit(detail_penjualan $detail_penjualan)
     {
         //
     }
@@ -68,10 +64,10 @@ class PenjualanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Penjualan  $penjualan
+     * @param  \App\Models\detail_penjualan  $detail_penjualan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Penjualan $penjualan)
+    public function update(Request $request, detail_penjualan $detail_penjualan)
     {
         //
     }
@@ -79,10 +75,10 @@ class PenjualanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Penjualan  $penjualan
+     * @param  \App\Models\detail_penjualan  $detail_penjualan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penjualan $penjualan)
+    public function destroy(detail_penjualan $detail_penjualan)
     {
         //
     }

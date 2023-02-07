@@ -55,6 +55,14 @@
                     <a href="/customer" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
                             class="fas fa-solid fa-users fw-bold me-2"></i>Customer</a>
                 </div>
+                <div class="efek">
+                    <a href="/customer" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
+                            class="fas fa-solid fa-users fw-bold me-2"></i>Penjualan</a>
+                </div>
+                <div class="efek">
+                    <a href="/customer" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
+                            class="fas fa-solid fa-users fw-bold me-2"></i>Detail Penjualan</a>
+                </div>
                 <div class="efek align-items-end">
                     <a href="#" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
                             class="fas fa-power-off me-2"></i>Logout</a>

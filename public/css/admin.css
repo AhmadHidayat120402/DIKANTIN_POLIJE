@@ -39,7 +39,7 @@ body {
 
 #sidebar-wrapper {
     margin-top: 15px;
-    height: 95vh;
+    height: 100vh;
     margin-left: -10rem;
     -webkit-transition: margin 0.25s ease-out;
     -moz-transition: margin 0.25s ease-out;
