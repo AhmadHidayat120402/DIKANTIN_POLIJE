@@ -1,0 +1,11 @@
+html,body{
+    background-image: url("/img/bac-login.png");
+    background-size: cover;
+    background-position: center;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+.login-register{
+    width: 100%;
+    display: inline;
+}
