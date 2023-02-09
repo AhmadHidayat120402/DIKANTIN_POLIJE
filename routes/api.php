@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\MenuApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();});
+
+Route::get('/menus', [MenuApiController::class, 'index']);
+Route::post('/menus', [MenuApiController::class, 'store']);
+Route::get('/menus/{id}', [MenuApiController::class, 'show']);
+Route::put('/menus/{id}', [MenuApiController::class, 'update']);
+Route::delete('/menus/{id}', [MenuApiController::class, 'destroy']);
+

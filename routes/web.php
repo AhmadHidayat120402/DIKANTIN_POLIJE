@@ -12,9 +12,10 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FirstAppController;
 use App\Http\Controllers\LoginAppController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DetailPenjualanController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\RegisterAppController;
+use App\Http\Controllers\DetailPenjualanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,12 @@ use App\Http\Controllers\PenjualanController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', [LoginAppController::class, 'index']);
+Route::post('/', [LoginAppController::class, 'authenticate']);
 
-Auth::routes();
+Route::get('/register', [RegisterAppController::class, 'index']);
+Route::post('/register', [RegisterAppController::class, 'store']);
+// Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/login', [LoginController::class, 'index']);
@@ -64,8 +69,8 @@ Route::get('/menu/{id}/edit', [MenuController::class, 'edit']);
 Route::put('/menu/{id}', [MenuController::class, 'update']);
 Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
 
-Route::get('/', [DashboardController::class, 'index']);
-Route::get('/loginApp', [LoginAppController::class, 'index']);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/kasir', [KasirController::class, 'index']);
 Route::get('/waiting', [WaitingController::class, 'index']);
 Route::get('/succes', [SuccesController::class, 'index']);
