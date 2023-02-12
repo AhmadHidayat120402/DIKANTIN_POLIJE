@@ -16,21 +16,27 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fw-bold" style="color: black" href="#"
-                                id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2" style="color: black"></i>Ahmad Hidayat
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}
+                <ul class="navbar-nav ms-auto">
+                    @auth
+                        {{-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle h3" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    welcome back, {{ auth()->user()->name }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </li> --}}
+                        <h3 class="fw-bold">welcome back, {{ auth()->user()->name }}</h3>
+                    @else
+                    @endauth
+                </ul>
+                {{-- </div> --}}
             </nav>
 
         </div>

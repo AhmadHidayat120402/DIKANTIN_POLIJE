@@ -15,6 +15,10 @@
                 <label for="alamat" class="form-label">Alamat</label>
                 <input type="text" class="form-control" id="alamat" name="alamat" required>
             </div>
+            <div class="mb-3">
+                <label for="no_telepon" class="form-label">No telepon</label>
+                <input type="text" class="form-control" id="no_telepon" name="no_telepon" required>
+            </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
             <a href="/customer" class="btn btn-light px-3">Kembali</a>
         </form>

@@ -29,12 +29,13 @@ use App\Http\Controllers\DetailPenjualanController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
 });
-Route::get('/', [LoginAppController::class, 'index']);
+Route::get('/', [LoginAppController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/', [LoginAppController::class, 'authenticate']);
+Route::post('/logout', [LoginAppController::class, 'logout']);
 
-Route::get('/register', [RegisterAppController::class, 'index']);
+Route::get('/register', [RegisterAppController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterAppController::class, 'store']);
 // Auth::routes();
 
@@ -70,7 +71,7 @@ Route::put('/menu/{id}', [MenuController::class, 'update']);
 Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
 
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/kasir', [KasirController::class, 'index']);
 Route::get('/waiting', [WaitingController::class, 'index']);
 Route::get('/succes', [SuccesController::class, 'index']);

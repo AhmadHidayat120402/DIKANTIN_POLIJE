@@ -64,8 +64,11 @@
                             class="fas fa-solid fa-users fw-bold me-2"></i>Detail Penjualan</a>
                 </div>
                 <div class="efek align-items-end">
-                    <a href="#" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
-                            class="fas fa-power-off me-2"></i>Logout</a>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button type="submit" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
+                                class="fas fa-power-off me-2"></i> Logout</button>
+                    </form>
                 </div>
             </div>
         </div>

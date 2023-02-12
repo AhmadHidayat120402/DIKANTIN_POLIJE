@@ -41,8 +41,8 @@
                 <div class="form-floating">
                     <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
                         id="email" placeholder="email" required autofocus value="{{ old('email') }}">
-                    <i class='bx bx-user-circle icon-username'></i>
-                    <label for="email">Email</label>
+                    <i class='bx bx-user-circle'></i>
+                    <label for="email">Email Address</label>
                     @error('email')
                         <div class="valid-feedback">
                             {{ 'The email must be valid email address' }}
