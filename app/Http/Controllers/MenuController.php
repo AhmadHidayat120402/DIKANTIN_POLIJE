@@ -40,11 +40,11 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         $data = $request->all();
         $data['foto'] = $request->file('foto')->store('menu', 'public');
-
         Menu::create($data);
         return redirect('/menu');
     }

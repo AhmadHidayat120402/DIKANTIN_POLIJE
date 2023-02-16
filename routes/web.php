@@ -28,17 +28,17 @@ use App\Http\Controllers\DetailPenjualanController;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
     // return view('welcome');
-});
-Route::get('/', [LoginAppController::class, 'index'])->name('login')->middleware('guest');
+// });
+
+Route::get('/', [LoginAppController::class, 'index'])->name('login');
 Route::post('/', [LoginAppController::class, 'authenticate']);
 Route::post('/logout', [LoginAppController::class, 'logout']);
-
 Route::get('/register', [RegisterAppController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterAppController::class, 'store']);
-// Auth::routes();
 
+// Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/login', [LoginController::class, 'index']);
 // Route::get('/first', [FirstAppController::class, 'index']);
@@ -75,7 +75,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 Route::get('/kasir', [KasirController::class, 'index']);
 Route::get('/waiting', [WaitingController::class, 'index']);
 Route::get('/succes', [SuccesController::class, 'index']);
-
 
 
 Route::get('/customer', [CustomerController::class, 'index']);

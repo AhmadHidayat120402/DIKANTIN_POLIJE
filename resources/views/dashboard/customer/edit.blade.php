@@ -5,9 +5,9 @@
             @method('PUT')
             @csrf
             <div class="mb-3">
-                <label for="id_customer" class="form-label">ID Customer</label>
-                <input type="text" class="form-control" id="id_customer" name="id_customer"
-                    value="{{ $customer->id_customer }}">
+                <label for="id_customers" class="form-label">ID Customer</label>
+                <input type="text" class="form-control" id="id_customers" name="id_customers"
+                    value="{{ $customer->id_customers }}">
             </div>
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>

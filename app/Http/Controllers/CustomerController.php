@@ -15,6 +15,7 @@ class CustomerController extends Controller
             'customer' => $customer
         ]);
     }
+
     public function create()
     {
         return view('dashboard.customer.create', [
@@ -30,6 +31,8 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request->all());
         Customer::create($request->all());
         return redirect('/customer');
     }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\detail_penjualan;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class DetailPenjualanController extends Controller
+
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,17 @@ class DetailPenjualanController extends Controller
      */
     public function index()
     {
-        
+
+    }
+
+    public function get_all($id)
+    {
+        $penjualans = detail_penjualan::where('id_penjualan', $id)->get();
+        // $penjualans = detail_penjualan::join('penjualans', 'detail_penjualans.id_penjualan', '=', 'detail_penjualans.id_penjualan')
+        // ->get(['penjualans.*', 'detail_penjualans', $id]);
+
+        return response($penjualans);
+
     }
 
     /**
@@ -35,8 +47,25 @@ class DetailPenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+
+        $data = $request->all();
+        $menu = Menu::findOrFail($request->id_menu);
+        $data['id_penjualan'] = $request->id_penjualan;
+        $data['tanggal_penjualan'] = date("Y-m-d");
+        $data['harga'] = $menu->harga;
+        $data['diskon'] = 0;
+
+        // CEK KEBRADAAN MENU DI DETAIL DPENJUALAN
+        $available_menu = detail_penjualan::where('id_penjualan', $request->id_penjualan)->where('id_menu', $request->id_menu);
+        if ($available_menu->count() != null) {
+            $data['jumlah'] = $available_menu->first()->jumlah + 1;
+            detail_penjualan::where('id_menu', $request->id_menu)->update($data);
+        } else {
+            $data['jumlah'] = 1;
+            detail_penjualan::create($data);
+        }
+        return response()->json(['id_penjualan' => $request->id_penjualan]);
+    }               
 
     /**
      * Display the specified resource.

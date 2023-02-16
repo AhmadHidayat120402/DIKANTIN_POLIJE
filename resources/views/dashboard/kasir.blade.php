@@ -30,8 +30,8 @@
                                     <div class="align-items-end justify-content-end">
                                         <label for="inputid" class="form-label">ID Customer</label>
                                         <div class="d-flex align-items-center gap-3">
-                                            <input type="text" id="inputid" class="form-control bg-lingkaran"
-                                                onkeyup="showCustomer(this.value)">
+                                            <input type="text" class="form-control bg-lingkaran"
+                                                onchange="showCustomer(this.value)">
                                             <input type="hidden" id="inputid">
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-md-4">
                         <div>
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" id="kantin">
                                 <option selected>Pilih</option>
                                 <option value="1">Kantin 1</option>
                                 <option value="2">Kantin 2</option>
@@ -68,6 +68,8 @@
                                 <option value="7">Kantin 7</option>
                                 <option value="8">Kantin 8</option>
                             </select>
+                            <button class="btn btn-primary w-100 mt-2" type="button" id="submitPenjualan"
+                                onclick="savePenjualan()">Submit</button>
                         </div>
                         <div class="flex2">
                             <div class="align-items-end justify-content-end">
@@ -95,7 +97,7 @@
                                     @foreach ($menu as $m)
                                         <div class="col-md-3 mt-2">
                                             <div class="bungkus-menu bg-second" id="menu_luar"
-                                                onclick="saveCart({{ $m->id }})">
+                                                onclick="addCart({{ $m->id }})" style="cursor: pointer">
                                                 <img src="{{ url('storage/' . $m->foto) }}" alt="" width="80px"
                                                     class="justify-content-center align-items-center mx-auto d-block p-2"
                                                     id="menu_dalam">
@@ -116,34 +118,18 @@
                 <form action="#" method="POST">
                     @csrf
                     <div class="d-flex justify-content-between gap-3 mt-2">
-                        <h5 class="fw-bold mt-2 d-inline">Order</h5>
+                        <h5 class="fw-bold mt-2 d-inline">Order <span id="orderid"></span></h5>
                         <div class="d-flex order">
-                            <input type="text" placeholder="1" class="d-inline bg-white form-control"
-                                style="width: 90%; border: none;">
                             <input type="date" class="bg-white form-control" id="exampleInputEmail1"
                                 value="{{ date('Y-m-d') }}" disabled style="outline: none; border: none; width: 100%">
                         </div>
                     </div>
 
-                    <div class="cart-menu row align-items-center mt-3">
-                        <div class="col-6">
-                            <p class="m-0 text-dark">Geprek Sai</p>
-                            <p class="m-0 text-secondary">Rp. 500.000</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="m-0">1x</p>
-                        </div>
-                        <div class="col-4">
-                            <div class="d-flex align-items-center justify-content-end gap-1">
-                                <button class="btn btn-sm btn-light rounded-circle">+</button>
-                                <button class="btn btn-sm btn-light rounded-circle">-</button>
-                                <button type="submit" class="btn btn-sm btn-danger rounded-circle" id="btn_hapus">
-                                    <i class="fa-solid fa-trash-can text-white"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <div id="cart">
+
                     </div>
-                    <div class="input-group no-meja">
+
+                    <div class="input-group no-meja mt-3">
                         <span class="input-group-text" id="basic-addon1">No Meja</span>
                         <input type="number" class="form-control" placeholder="17" aria-label="Username"
                             aria-describedby="basic-addon1" min="1">
@@ -167,34 +153,40 @@
                         </div>
                         <div class="d-flex justify-content-between mt-0">
                             <p class="fw-bold">Subtotal</p>
-                            <input type="number" class="form-control input-bayar">
+                            <input type="number" class="form-control input-bayar bg-white text-black " disabled
+                                value=" {{ '1000000' }}">
                         </div>
                         <div class="d-flex justify-content-between mt-0">
                             <p class="fw-bold">Diskon</p>
-                            <input type="number" class="form-control input-bayar">
+                            <input type="number" class="form-control input-bayar bg-white text-black" min="1"
+                                disabled value="{{ '0' }}">
                         </div>
                         <div class="d-flex justify-content-between mt-0">
                             <p class="fw-bold">Total</p>
-                            <input type="number" class="form-control input-bayar">
+                            <input type="number" class="form-control input-bayar bg-white text-black" disabled
+                                value="{{ '1000000' }}">
                         </div>
-                        <div class="d-flex justify-content-between mt-0">
+                        <div class="d-flex
+                                justify-content-between mt-0">
                             <p class="fw-bold">Bayar</p>
-                            <input type="number" class="form-control input-bayar">
+                            <input type="number" class="form-control input-bayar" min="1">
                         </div>
                         <div class="d-flex justify-content-between mt-0">
                             <p class="fw-bold">Kembali</p>
-                            <input type="number" class="form-control input-bayar">
+                            <input type="number" class="form-control input-bayar text-black bg-white" disabled>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary form-control" id="btn_save">Simpan</button>
-                    <button type="submit" class="btn btn-danger form-control mt-3" id="btn_clearAll">Clear All</button>
+                    <button type="submit" class="btn btn-primary form-control rounded-pill"
+                        id="btn_save">Simpan</button>
+                    <button type="submit" class="btn btn-danger form-control mt-3 rounded-pill" id="btn_clearAll">Clear
+                        All</button>
                 </form>
             </div>
         </div>
     </div>
 @endsection
 
-@section('script')
+@push('script')
     <script>
         $.ajaxSetup({
             headers: {
@@ -213,17 +205,134 @@
                     $('#inputalamat').val(data['alamat']);
                     $('#inputtelepon').val(data['no_telepon']);
                     $('#nama').text(data['nama']);
-                    $('#menu_nama').val(data['nama_menu']);
+                    $('#nama_menu').val(data['nama_menu']);
                     $('#menu_harga').val(data['harga']);
                 }
             })
         }
 
-        function saveCart(id) {
-            var menu_id = id;
+        function savePenjualan() {
+            let customer_id = $('#inputid').val();
+            let cashier = $('#kantin').val();
+
+            console.log(customer_id);
 
             $.ajax({
-url: ''
+                url: "{{ route('penjualan.save') }}",
+                type: "POST",
+                // method: "POST",
+                data: {
+                    id_customer: customer_id,
+                    id_kasir: cashier,
+                },
+
+                success: function(response) {
+                    $('#orderid').text(response.orderid);
+                    $('#submitPenjualan').attr('disabled', true)
+                }
+            })
+        }
+
+        function addCart(id) {
+            let id_menu = id;
+
+            $.ajax({
+                url: "{{ route('cart.save') }}",
+                type: "POST",
+                method: "POST",
+                data: {
+                    id_menu: id_menu,
+                    id_kantin: $('#kantin').val(),
+                    id_penjualan: $('#orderid').text()
+                },
+
+                success: function(response) {
+                    showCart(response.id_penjualan)
+                }
+            })
+        }
+
+        function showCart(id) {
+            $.ajax({
+                url: "http://127.0.0.1:8000/api/cart/" + id,
+                type: "GET",
+                method: "GET",
+            }).then(function(response) {
+                html = '';
+                response.forEach((item) => {
+                    console.log(item);
+                    html +=
+                        '<div class="cart-menu row align-items-center mt-3"><div class="col-6">' +
+                        '<p class="m-0 text-dark">' + item.menus.nama_menu + '</p>' +
+                        '<p class="m-0 text-secondary">Rp. ' + item.harga + '</p>' +
+                        '</div>' +
+                        '<div class="col-2">' +
+                        '<p class="m-0">' + item.jumlah + 'x</p>' +
+                        '</div>' +
+                        '<div class="col-4">' +
+                        '<div class="d-flex align-items-center justify-content-end gap-1">' +
+                        '<button onclick="tambahJumlah(' + item.id + ', ' + item.id_penjualan +
+                        ')" type="button" class="btn btn-sm btn-light rounded-circle">+</button>' +
+                        '<button  onclick="kurangJumlah(' + item.id + ', ' + item.id_penjualan +
+                        ')" type="button" class="btn btn-sm btn-light rounded-circle">-</button>' +
+                        '<button onclick="hapusItem(' + item.id + ', ' + item.id_penjualan +
+                        ')" type="button"  class="btn btn-sm btn-danger rounded-circle" id="btn_hapus">' +
+                        '<i class="fa-solid fa-trash-can text-white"></i>' +
+                        '</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                })
+                $('#cart').html(html)
+            });
+        }
+
+        function tambahJumlah(id, id_penjualan) {
+            console.log(id, id_penjualan);
+
+            $.ajax({
+                url: "{{ route('penjualan.tambahJumlah') }}",
+                type: "POST",
+                // method: "POST",
+                data: {
+                    id: id,
+                },
+
+                success: function(response) {
+                    showCart(id_penjualan);
+                }
+            })
+        }
+
+        function kurangJumlah(id, id_penjualan) {
+            console.log(id, id_penjualan);
+            $.ajax({
+                url: "{{ route('penjualan.kurangJumlah') }}",
+                type: "POST",
+                // method: "POST",
+                data: {
+                    id: id,
+                },
+
+                success: function(response) {
+                    showCart(id_penjualan);
+                }
+            })
+        }
+
+        function hapusItem(id, id_penjualan) {
+            console.log(id, id_penjualan);
+            $.ajax({
+                url: "{{ route('penjualan.hapusItem') }}",
+                type: "POST",
+                // method: "POST",
+                data: {
+                    id: id,
+                },
+
+                success: function(response) {
+                    showCart(id_penjualan);
+                }
             })
         }
 
@@ -264,4 +373,4 @@ url: ''
         //     }
         // }
     </script>
-@endsection
+@endpush

@@ -10,6 +10,7 @@
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
@@ -56,11 +57,11 @@
                             class="fas fa-solid fa-users fw-bold me-2"></i>Customer</a>
                 </div>
                 <div class="efek">
-                    <a href="/customer" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
+                    <a href="/penjualan" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
                             class="fas fa-solid fa-users fw-bold me-2"></i>Penjualan</a>
                 </div>
                 <div class="efek">
-                    <a href="/customer" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
+                    <a href="/detail_penjualan" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
                             class="fas fa-solid fa-users fw-bold me-2"></i>Detail Penjualan</a>
                 </div>
                 <div class="efek align-items-end">
@@ -79,15 +80,15 @@
             var el = document.getElementById("wrapper");
             var toggleButton = document.getElementById("menu-toggle");
 
-            toggleButton.onclick = function() {
-                el.classList.toggle("toggled");
-            };
+            // toggleButton.onclick = function() {
+            //     el.classList.toggle("toggled");
+            // };
         </script>
         <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-        <script src={{ url('vendor/jquery-ui-1') }}></script>
+        {{-- <script src={{ url('vendor/jquery-ui-1') }}></script> --}}
         <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-        @yield('script')
+        @stack('script')
 
         <script src="{{ url('script/search.js') }}"></script>
 </body>

@@ -36,7 +36,6 @@
         <a href="/customer/create"class="text-decoration-none"
             style="background: white; padding: 10px; border-radius:20px; color:black">create new customer
         </a>
-
         <div class="table-responsive mt-3 bg-white p-4" style="border-radius: 20px; height:76% !important;">
             <table class="table table-striped table-hover w-100 nowrap" width="100%" id="table-customer">
                 <thead>

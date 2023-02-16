@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\detail_penjualan;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,42 @@ class PenjualanController extends Controller
         //
     }
 
+    public function tambahJumlah(Request $request)
+    {
+        $detail = detail_penjualan::find($request->id);
+
+        $jumlah = $detail->jumlah + 1;
+
+        $harga = $detail->menus->harga * $jumlah;
+
+        $data['jumlah'] = $jumlah;
+        $data['harga'] = $harga;
+
+        $detail->update($data);
+
+        return response(true);
+    }
+    public function kurangJumlah(Request $request)
+    {
+        $detail = detail_penjualan::find($request->id);
+
+        $jumlah = $detail->jumlah - 1;
+
+        $harga = $detail->menus->harga * $jumlah;
+
+        $data['jumlah'] = $jumlah;
+        $data['harga'] = $harga;
+
+        $detail->update($data);
+
+        return response(true);
+    }
+
+    public function hapusItem(Request $request)
+    {
+        $detail = detail_penjualan::find($request->id)->delete();
+        return response(true);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -39,7 +76,23 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data['id_customer'] = $request->id_customer;
+        $data['id_kasir'] = $request->id_kasir;
+        $data['nomer_penjualan'] = Penjualan::count() + 1;
+        $data['subtotal'] = 0;
+        $data['diskon'] = 0;
+        $data['total'] = 0;
+        $data['bayar'] = 0;
+        $data['model_pembayaran'] = "cash";
+        $data['kembalian'] = 0;
+        $data['no_meja'] = 0;
+        $data['tanggal_penjualan'] = date("Y-m-d");
+
+        Penjualan::updateOrCreate($data);
+
+        $penjualan = Penjualan::orderBy('id', 'desc')->first();
+
+        return response()->json(['orderid' => $penjualan->id]);
     }
 
     /**
