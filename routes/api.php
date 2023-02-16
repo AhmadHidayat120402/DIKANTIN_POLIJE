@@ -20,7 +20,7 @@ use App\Http\Controllers\PenjualanController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();});
 
-Route::get('/menu   s', [MenuApiController::class, 'index']);
+Route::get('/menus', [MenuApiController::class, 'index']);
 Route::post('/menus', [MenuApiController::class, 'store']);
 Route::get('/menus/{id}', [MenuApiController::class, 'show']);
 Route::put('/menus/{id}', [MenuApiController::class, 'update']);

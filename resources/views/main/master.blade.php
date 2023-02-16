@@ -32,7 +32,7 @@
                         class="fas fa-user-secret me-2"></i>DIKANTIN</a></div>
             <div class="list-group list-group-flush my-3">
                 <div class="efek">
-                    <a href="/" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
+                    <a href="/dashboard" class="list-group-item list-group-item-action bg-transparent fw-bold"><i
                             class='bx bxs-dashboard me-2 fw-bold'></i>Dashboard</a>
 
                 </div>
