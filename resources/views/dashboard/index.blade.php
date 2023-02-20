@@ -15,11 +15,11 @@
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}
-                <ul class="navbar-nav ms-auto">
-                    @auth
-                        {{-- <li class="nav-item dropdown">
+                    <ul class="navbar-nav ms-auto">
+                        @auth
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle h3" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     welcome back, {{ auth()->user()->name }}
@@ -31,11 +31,14 @@
                                     </li>
                                     <li><a class="dropdown-item" href="#">Logout</a></li>
                                 </ul>
-                            </li> --}}
-                        <h3 class="fw-bold">welcome back, {{ auth()->user()->name }}</h3>
-                    @else
-                    @endauth
-                </ul>
+                            </li>
+
+
+                            {{-- <h3 class="fw-bold">welcome back, {{ auth()->user()->name }}</h3> --}}
+                        @else
+                        @endauth
+                    </ul>
+                </div>
                 {{-- </div> --}}
             </nav>
 
@@ -51,7 +54,6 @@
                             <h3 class="fs-2">Rp 250.000</h3>
                             <p class="fs-5">Total Pendapatan</p>
                         </div>
-
                     </div>
                 </div>
 

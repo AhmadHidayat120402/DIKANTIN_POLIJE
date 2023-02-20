@@ -29,7 +29,7 @@ use App\Http\Controllers\DetailPenjualanController;
 */
 
 // Route::get('/', function () {
-    // return view('welcome');
+// return view('welcome');
 // });
 
 Route::get('/', [LoginAppController::class, 'index'])->name('login');
@@ -73,6 +73,8 @@ Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/kasir', [KasirController::class, 'index']);
+Route::post('/kasir', [KasirController::class, 'order']);
+Route::get('/kasir/hapussemua/{id}', [KasirController::class, 'hapussemua']);
 Route::get('/waiting', [WaitingController::class, 'index']);
 Route::get('/succes', [SuccesController::class, 'index']);
 

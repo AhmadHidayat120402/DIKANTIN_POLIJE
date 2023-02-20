@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
@@ -6,14 +7,17 @@ use App\Models\Customer;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\detail_penjualan;
 
 class KasirController extends Controller
 {
-    public function index()
+    public function index(Request $req)
     {
+
+        $pencarian = $req->q;
         $customer = Customer::all();
         $penjualan = Penjualan::all();
-        $menu = Menu::all();
+        $menu = Menu::where('nama_menu', 'like', "%$pencarian%")->get();
 
         return view('dashboard.kasir', [
             'title' => 'kasir',
@@ -27,6 +31,21 @@ class KasirController extends Controller
         return view('dashboard.customer.create', [
             'title' => 'Add Customer'
         ]);
+    }
+
+    public function order(Request $req)
+    {
+        $data['subtotal'] = $req->subtotal;
+        $data['diskon'] = $req->diskon;
+        $data['total'] = $req->total;
+        $data['bayar'] = $req->bayar;
+        $data['kembalian'] = $req->kembali;
+        $data['model_pembayaran'] = $req->model_pembayaran;
+        $data['no_meja'] = $req->no_meja;
+
+        Penjualan::where('id', $req->id_penjualan)->update($data);
+
+        return redirect('/kasir');
     }
 
     /**
@@ -85,9 +104,22 @@ class KasirController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+
     {
         $customer = Customer::find($id);
         $customer->delete();
         return redirect('/customer');
+    }
+
+    public function hapussemua($id)
+    {
+        // Penjualan::destroy($id);
+        detail_penjualan::where('id_penjualan', $id)->delete();
+        Penjualan::where('id', $id)->delete();
+
+        return redirect('/kasir');
+    }
+    public function cekCustomer(Request $request)
+    {
     }
 }

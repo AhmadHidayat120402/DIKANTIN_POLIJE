@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use Illuminate\Http\Request;
@@ -12,9 +13,13 @@ class MenuApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $req)
     {
-        $menu = Menu::all();
+        $builder = new Menu;
+        if ($req->q) {
+            $builder = $builder->where('nama_menu', 'like', "%$req->q%");
+        }
+        $menu = $builder->get();
         return response()->json(['message' => 'success', 'data' => $menu]);
     }
 
@@ -58,7 +63,7 @@ class MenuApiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    
+
     {
         //
     }

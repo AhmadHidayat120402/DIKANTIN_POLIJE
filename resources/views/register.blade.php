@@ -28,7 +28,7 @@
                 <div class="form-floating">
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                         id="name" placeholder="Ahmad Hidayat" required value="{{ old('name') }}">
-                    <i class='bx bx-user-circle icon-username'></i>
+                    {{-- <i class='bx bx-user-circle icon-username'></i> --}}
                     <label for="name">Name </label>
                     @error('name')
                         <div class="valid-feedback">
@@ -39,7 +39,7 @@
                 <div class="form-floating">
                     <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"
                         id="username" placeholder="Ahmad12" required value="{{ old('username') }}">
-                    <i class='bx bx-user-circle icon-username'></i>
+                    {{-- <i class='bx bx-user-circle icon-username'></i> --}}
                     <label for="username">Username</label>
                     @error('username')
                         <div class="valid-feedback">
@@ -50,7 +50,7 @@
                 <div class="form-floating">
                     <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror"
                         id="floatingInput" placeholder="name@example.com"required value="{{ old('email') }}">
-                    <i class='bx bx-user-circle icon-username   '></i>
+                    {{-- <i class='bx bx-user-circle icon-username   '></i> --}}
                     <label for="floatingInput">Email Address</label>
                     @error('email')
                         <div class="valid-feedback">
@@ -73,7 +73,7 @@
                     @enderror
                 </div>
 
-                <button class="btn-block btn btn-lg rounded-pill btn-login" type="submit">Register</button>
+                <button class="btn-block btn btn-lg rounded-pill btn-login mt-5" type="submit">Register</button>
 
             </form>
             <div class="container-register mt-3">

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="sign-in.css" rel="stylesheet">
+    {{-- <link href="sign-in.css" rel="stylesheet"> --}}
 </head>
 
 <body>
@@ -39,9 +39,9 @@
             <form method="POST" action="/" class="cover-login">
                 @csrf
                 <div class="form-floating">
-                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror"
+                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror "
                         id="email" placeholder="email" required autofocus value="{{ old('email') }}">
-                    <i class='bx bx-user-circle'></i>
+                    {{-- <i class='bx bx-user-circle'></i> --}}
                     <label for="email">Email Address</label>
                     @error('email')
                         <div class="valid-feedback">
@@ -50,11 +50,11 @@
                     @enderror
                 </div>
                 <div class="form-floating">
-                    <input type="password" name="password" class="form-control @error('email') is-invalid @enderror"
+                    <input type="password" name="password" class="form-control @error('email') is-invalid @enderror "
                         id="floatingPassword" placeholder="Password">
                     <span class="eye" onclick="myFunction()">
-                        <i id="hide1" class="fa-sharp fa-solid fa-eye icon-password2"></i>
-                        <i id="hide2" class="fa-sharp fa-solid fa-eye-slash icon-password"></i>
+                        <i id="hide1" class="fa-sharp fa-solid fa-eye"></i>
+                        <i id="hide2" class="fa-sharp fa-solid fa-eye-slash"></i>
                     </span>
                     <label for="floatingPassword">Password</label>
                     @error('password')

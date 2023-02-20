@@ -74,11 +74,11 @@
                         <div class="flex2">
                             <div class="align-items-end justify-content-end">
                                 <div class="d-flex align-items-center gap-3">
-                                    <input type="text" class="form-control bg-lingkaran cari-menu"
-                                        placeholder="Cari Menu" onkeyup="searchProducts()" id="search-input">
-                                    <div class="bg-search ">
+                                    <input type="text" autocomplete="off" class="form-control" onchange="getMenu()"
+                                        placeholder="Cari Menu" name="q" id="search-input">
+                                    {{-- <div class="bg-search ">
                                         <i class='bx bx-search m-0'></i>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -93,21 +93,7 @@
                                     class="p-3 shadow-sm d-flex justify-content-center gap-3 align-items-center bg-lingkaran customer">
                                     <p class="fs-5 text-white text-center">Menu</p>
                                 </div>
-                                <div class="row mt-3">
-                                    @foreach ($menu as $m)
-                                        <div class="col-md-3 mt-2">
-                                            <div class="bungkus-menu bg-second" id="menu_luar"
-                                                onclick="addCart({{ $m->id }})" style="cursor: pointer">
-                                                <img src="{{ url('storage/' . $m->foto) }}" alt="" width="80px"
-                                                    class="justify-content-center align-items-center mx-auto d-block p-2"
-                                                    id="menu_dalam">
-                                                <p class="m-0 text-center text-primary fw-bold" id="harga_menu">Rp
-                                                    {{ number_format($m->harga) }}</p>
-                                                <p class="m-0 text-center" id="nama_menu" onclick="namamakanan(this.value)">
-                                                    {{ $m->nama_menu }}</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                <div class="row mt-3" id="data-menu">
                                 </div>
                             </div>
                         </div>
@@ -117,9 +103,9 @@
             <div class="col-md-4 bg-nota">
                 <form action="#" method="POST">
                     @csrf
-                    <div class="d-flex justify-content-between gap-3 mt-2">
-                        <h5 class="fw-bold mt-2 d-inline">Order <span id="orderid"></span></h5>
-                        <div class="d-flex order">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="fw-bold mt-2 d-inline">Order <span hidden id="orderid"></span></h5>
+                        <div class="order">
                             <input type="date" class="bg-white form-control" id="exampleInputEmail1"
                                 value="{{ date('Y-m-d') }}" disabled style="outline: none; border: none; width: 100%">
                         </div>
@@ -129,14 +115,16 @@
 
                     </div>
 
+                    <input type="hidden" name="id_penjualan" id="id_penjualan">
+
                     <div class="input-group no-meja mt-3">
                         <span class="input-group-text" id="basic-addon1">No Meja</span>
                         <input type="number" class="form-control" placeholder="17" aria-label="Username"
-                            aria-describedby="basic-addon1" min="1">
+                            aria-describedby="basic-addon1" min="1" name="no_meja">
                     </div>
                     <div class="mb-3">
                         <div class="metode-pembayaran mt-3">
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" name="model_pembayaran">
                                 <option selected>Pilih Pembayaran</option>
                                 <option value="cash">Cash</option>
                                 <option value="polijepay">PolijePay</option>
@@ -153,33 +141,37 @@
                         </div>
                         <div class="d-flex justify-content-between mt-0">
                             <p class="fw-bold">Subtotal</p>
-                            <input type="number" class="form-control input-bayar bg-white text-black " disabled
-                                value=" {{ '1000000' }}">
+                            <input type="number" name="subtotal" id="subtotal"
+                                class="form-control input-bayar bg-white text-black " readonly value="0">
                         </div>
                         <div class="d-flex justify-content-between mt-0">
                             <p class="fw-bold">Diskon</p>
-                            <input type="number" class="form-control input-bayar bg-white text-black" min="1"
-                                disabled value="{{ '0' }}">
+                            <input type="number" name="diskon" id="diskon"
+                                class="form-control input-bayar bg-white text-black" min="1" max="100"
+                                oninput="hitungTotal()" placeholder="0">
                         </div>
                         <div class="d-flex justify-content-between mt-0">
                             <p class="fw-bold">Total</p>
-                            <input type="number" class="form-control input-bayar bg-white text-black" disabled
-                                value="{{ '1000000' }}">
+                            <input type="number" name="total" id="total"
+                                class="form-control input-bayar bg-white text-black" readonly value="{{ '0' }}">
                         </div>
                         <div class="d-flex
                                 justify-content-between mt-0">
                             <p class="fw-bold">Bayar</p>
-                            <input type="number" class="form-control input-bayar" min="1">
+                            <input type="number" name="bayar" id="bayar" oninput="hitungPembayaran()"
+                                class="form-control input-bayar" min="1" placeholder="00000">
                         </div>
                         <div class="d-flex justify-content-between mt-0">
                             <p class="fw-bold">Kembali</p>
-                            <input type="number" class="form-control input-bayar text-black bg-white" disabled>
+                            <input type="number" name="kembali" id="kembali"
+                                class="form-control input-bayar text-black bg-white" readonly>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary form-control rounded-pill"
                         id="btn_save">Simpan</button>
-                    <button type="submit" class="btn btn-danger form-control mt-3 rounded-pill" id="btn_clearAll">Clear
-                        All</button>
+                    <a href="/kasir/hapussemua" id="linkhapussemua"
+                        class="btn btn-danger form-control mt-3 rounded-pill relative mt-0" id="btn_clearAll">Clear
+                        All</a>
                 </form>
             </div>
         </div>
@@ -211,9 +203,12 @@
             })
         }
 
+
+
         function savePenjualan() {
             let customer_id = $('#inputid').val();
-            let cashier = $('#kantin').val();
+            // let cashier = $('#kantin').val();
+            let cashier = '1';
 
             console.log(customer_id);
 
@@ -228,7 +223,13 @@
 
                 success: function(response) {
                     $('#orderid').text(response.orderid);
-                    $('#submitPenjualan').attr('disabled', true)
+                    $('#id_penjualan').val(response.orderid);
+
+                    const linkhapussemua = document.getElementById('linkhapussemua');
+                    linkhapussemua.href = '/kasir/hapussemua/' + response.orderid
+
+                    $('#submitPenjualan').attr('disabled', true);
+                    alert('Berhasil! Silahkan memilih makanan')
                 }
             })
         }
@@ -259,8 +260,10 @@
                 method: "GET",
             }).then(function(response) {
                 html = '';
+                subtotal = 0
                 response.forEach((item) => {
-                    console.log(item);
+                    console.log(item.harga);
+                    subtotal += item.harga;
                     html +=
                         '<div class="cart-menu row align-items-center mt-3"><div class="col-6">' +
                         '<p class="m-0 text-dark">' + item.menus.nama_menu + '</p>' +
@@ -284,7 +287,28 @@
                         '</div>';
                 })
                 $('#cart').html(html)
+                $('#subtotal').val(subtotal)
             });
+        }
+
+        function hitungTotal() {
+            // total = 10.000 - (10.000 * 10 / 100)
+            // total = 10.000 - (1000)
+            // total = 9.000
+
+            subtotal = parseInt($('#subtotal').val());
+            diskon = parseInt($('#diskon').val());
+            totalsemua = subtotal - (subtotal * diskon / 100);
+
+            $('#total').val(totalsemua);
+        }
+
+        function hitungPembayaran() {
+            bayar = $('#bayar').val();
+            total = $('#total').val();
+
+            kembalian = bayar - total;
+            $('#kembali').val(kembalian);
         }
 
         function tambahJumlah(id, id_penjualan) {
@@ -335,6 +359,36 @@
                 }
             })
         }
+
+        function getMenu() {
+            searching = $('#search-input').val();
+
+            $.ajax({
+                url: '/api/menus?q=' + searching,
+                method: 'GET',
+                success: function(res) {
+                    html = ''
+                    res.data.forEach((item) => {
+                        html += `<div class="col-md-3 mt-2">
+                                            <div class="bungkus-menu bg-second" id="menu_luar"
+                                                onclick="addCart(${item.id})" style="cursor: pointer">
+                                                <img src="storage/${item.foto}" alt="" width="80px"
+                                                    class="justify-content-center align-items-center mx-auto d-block p-2"
+                                                    id="menu_dalam">
+                                                <p class="m-0 text-center text-primary fw-bold" id="harga_menu">Rp
+                                                    ${item.harga}</p>
+                                                <p class="m-0 text-center" id="nama_menu" onclick="namamakanan(this.value)">
+                                                    ${item.nama_menu}</p>
+                                            </div>
+                                        </div>`;
+                    })
+
+                    $('#data-menu').html(html);
+                }
+            });
+        }
+
+        getMenu();
 
         // function menumakanan(id) {
         //     $.ajax({
